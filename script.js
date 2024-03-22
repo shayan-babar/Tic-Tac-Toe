@@ -1,6 +1,6 @@
 const squares = document.querySelectorAll('.square');
-const message = document.querySelectorAll('message');
-const resetButton = document.querySelectorAll('reset');
+const message = document.querySelectorAll('#message');
+const resetButton = document.querySelector('#reset');
 
 let currentPlayer = 'X';
 let gameBoard = ['', '', '', '', '', '', '', '', ''];
