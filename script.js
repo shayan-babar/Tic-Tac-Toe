@@ -38,21 +38,25 @@ function makeMove(index) {
         checkWinner();
     }
 }
-for (let i = 0; i < squares.length; i++) {
-    squares[i].addEventListener('click', () => {
-        makeMove(i);
-
-        if (!gameOver && currentPlayer === 'o') {
-            const emptySquares = gameBoard.reduce((acc, value, index) => {
-                if (!value) acc.push(index);
-                return;
-            }, []);
-            const randomIndex = emptySquares[Match.floor(Match.random() * emptySquares.length)];
-            makeMove(randomIndex);
-        }
-    })
+function renderBoard() {
+    squares.forEach((square, index) => {
+        square.textContent = gameBoard[index];
+    });
 }
 
+squares.forEach((square, index) => {
+    square.addEventListener('click', () => {
+        makeMove(index);
+        if (!gameOver && currentPlayer === 'O') {
+            const emptySquares = gameBoard.reduce((acc, value, index) => {
+                if (!value) acc.push(index);
+                return acc;
+            }, []);
+            const randomIndex = emptySquares[Math.floor(Math.random() * emptySquares.length)];
+            makeMove(randomIndex);
+        }
+    });
+});
 resetButton.addEventListener('click', () => {
     gameBoard = ['', '', '', '', '', '', '', '', ''];
     gameOver = false;
