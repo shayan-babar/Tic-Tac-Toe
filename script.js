@@ -1,5 +1,5 @@
 const squares = document.querySelectorAll('.square');
-const message = document.querySelectorAll('#message');
+const message = document.querySelector('#message');
 const resetButton = document.querySelector('#reset');
 
 let currentPlayer = 'X';
@@ -16,28 +16,31 @@ function checkWinner() {
         [2, 5, 8],
         [0, 4, 8],
         [2, 4, 6],
-
     ];
-    for (const comb of winCombinations) {
+    for (const combo of winCombinations) {
         const [a, b, c] = combo;
         if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
             gameOver = true;
-            message.innerText = `${gameBoard[a]} has wins!`;
+            message.innerText = `${gameBoard[a]} has won!`;
             return;
         }
+
     }
     if (!gameBoard.includes('')) {
         gameOver = true;
-        message.innerText = "It's a draw!"
+        message.innerText = "It's a draw!";
     }
 }
+
 function makeMove(index) {
     if (!gameBoard[index] && !gameOver) {
         gameBoard[index] = currentPlayer;
-        currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
         checkWinner();
+        renderBoard();
     }
 }
+
 function renderBoard() {
     squares.forEach((square, index) => {
         square.textContent = gameBoard[index];
@@ -57,10 +60,11 @@ squares.forEach((square, index) => {
         }
     });
 });
+
 resetButton.addEventListener('click', () => {
     gameBoard = ['', '', '', '', '', '', '', '', ''];
     gameOver = false;
-    currentPlayer = 'x';
+    currentPlayer = 'X';
     message.innerText = '';
-    squares.forEach(square => square.textContent = '');
+    renderBoard();
 });
